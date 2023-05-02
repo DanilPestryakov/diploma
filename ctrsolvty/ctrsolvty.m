@@ -367,7 +367,8 @@ ctrmax = ff;
 argmax = xx;
 
 %   сортируем образующие распознающего функционала по возрастанию
-tt = [(1:m)', tt];
+[f_max, g0_max, tt_max] = calcfg(argmax);
+tt = [(1:m)', tt_max];
 [z,ind] = sort(tt(:,2));
 envs = tt(ind,:);
 
