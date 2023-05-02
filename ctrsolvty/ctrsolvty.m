@@ -222,11 +222,18 @@ function [f,g,tt] = calcfg(x)
     x_nonneg = x >= 0;
     d_abs = Ar_mc .* (x_nonneg - x_neg);
 
-    if abs(infs(mc)) <= abs(sups(mc))
+    if abs(infs(mc)) <= abs(sups(mc)) && sups(mc) >= 0
         g = weight(mc) * (d_abs + Ac_mc);
-    else
+    endif
+    if abs(infs(mc)) <= abs(sups(mc)) && sups(mc) < 0
         g = weight(mc) * (d_abs - Ac_mc);
-    end
+    endif
+    if abs(infs(mc)) > abs(sups(mc)) && infs(mc) >= 0
+        g = weight(mc) * (d_abs + Ac_mc);
+    endif
+    if abs(infs(mc)) > abs(sups(mc)) && infs(mc) < 0
+        g = weight(mc) * (d_abs - Ac_mc);
+    endif
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
