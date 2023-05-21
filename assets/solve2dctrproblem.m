@@ -20,13 +20,12 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
   Ar = 0.5*(supA - infA);
   [m, n] = size(Ac);
   figure;
-  plot2d3d(infA, supA, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5]);
+  plot2d3d(infA, supA, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5], [ctrmax-5; ctrmax+5]);
 
 
   if ctrmax < -eps
     B = abs(supb - Ac * argmax) - Ar * abs(argmax);
     B = B';
-
     switch (mode)
       case 'SW' %same weight for identical variables
         A = zeros(m, 2);
@@ -77,7 +76,7 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
           w_vec(i, 2) = w(2 * i) + 1;
         endfor
         disp('w');
-        disp(w);
+        disp(w_vec);
         disp(underline);
         Ar = Ar.*w_vec;
     endswitch
@@ -100,7 +99,7 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
     disp(ccode);
     disp(underline);
     figure;
-    plot2d3d(infA_1, supA_1, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5]);
+    plot2d3d(infA_1, supA_1, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5], [ctrmax-5; ctrmax+5]);
   endif
   figure;
   set(gca, 'fontsize', 14);
