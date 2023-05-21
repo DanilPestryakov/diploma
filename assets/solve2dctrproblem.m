@@ -20,7 +20,7 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
   Ar = 0.5*(supA - infA);
   [m, n] = size(Ac);
   figure;
-  plot2d3d(infA, supA, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5], [ctrmax-5; ctrmax+5]);
+  plot2d3d(infA, supA, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5], [ctrmax-5; ctrmax+5], argmax, ctrmax);
 
 
   if ctrmax < -eps
@@ -99,7 +99,7 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
     disp(ccode);
     disp(underline);
     figure;
-    plot2d3d(infA_1, supA_1, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5], [ctrmax-5; ctrmax+5]);
+    plot2d3d(infA_1, supA_1, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5], [ctrmax-5; ctrmax+5], argmax, ctrmax);
   endif
   figure;
   set(gca, 'fontsize', 14);

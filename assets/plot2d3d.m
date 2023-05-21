@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2023-05-01
 % SimpleTest
-function plot2d3d(infA,supA,infb,supb,x_ranges,y_ranges,z_ranges)
+function plot2d3d(infA,supA,infb,supb,x_ranges,y_ranges,z_ranges,varargin)
   [xx, yy] = meshgrid(x_ranges, y_ranges);
   radA = (supA - infA) / 2;
   midA = (supA + infA) / 2;
@@ -34,7 +34,12 @@ function plot2d3d(infA,supA,infb,supb,x_ranges,y_ranges,z_ranges)
     l_plot_2 = plot3(xx(maxi(k), maxj(k)), yy(maxi(k), maxj(k)), z(maxi(k), maxj(k)), 'ro');
     hold on;
   endfor
+  if length(varargin) == 2
+    l_plot_3 = plot3(varargin{1}(1), varargin{1}(2), varargin{2}, 'gv');
+    legend([l_plot_1, l_plot_2, l_plot_3], {'Ctr graphic', 'Ctr max dots', sprintf('ctrmax: (%0.4e; %0.4e; %0.4e)', varargin{1}(1), varargin{1}(2), varargin{2})})
+  else
+    legend([l_plot_1, l_plot_2], {'Ctr graphic', 'Ctr max dots'})
+  endif
   hold off;
   zlim([-10 10]);
-  legend([l_plot_1, l_plot_2], {'Ctr graphic', 'Ctr max dots'})
 endfunction
