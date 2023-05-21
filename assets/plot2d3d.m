@@ -19,13 +19,22 @@ function plot2d3d(infA,supA,infb,supb,x_ranges,y_ranges,z_ranges)
       z(i, j) = min(sums);
     endfor
   endfor
-  surf(xx,yy,z);
+  l_plot_1 = surf(xx,yy,z);
   xlabel('x')
   ylabel('y');
   title('2D problem vizauliaztion');
   colorbar;
   hold on;
   surf(xx,yy,zeros(size(xx)));
+  hold on;
+  max_val = max(max(z));
+  [maxi,maxj] = find(z==max_val);
+  [m_s1, m_s2] = size(maxi);
+  for k = 1:m_s1
+    l_plot_2 = plot3(xx(maxi(k), maxj(k)), yy(maxi(k), maxj(k)), z(maxi(k), maxj(k)), 'ro');
+    hold on;
+  endfor
   hold off;
-  zlim([-10 10])
+  zlim([-10 10]);
+  legend([l_plot_1, l_plot_2], {'Ctr graphic', 'Ctr max dots'})
 endfunction
