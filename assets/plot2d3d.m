@@ -24,4 +24,7 @@ function plot2d3d(infA,supA,infb,supb,x_ranges,y_ranges)
   ylabel('y');
   title('2D problem vizauliaztion');
   colorbar;
+  hold on;
+  surf(xx,yy,zeros(size(xx)));
+  hold off;
 endfunction

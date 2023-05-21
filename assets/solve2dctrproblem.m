@@ -19,6 +19,9 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
   Ac = 0.5*(infA + supA);
   Ar = 0.5*(supA - infA);
   [m, n] = size(Ac);
+  figure;
+  plot2d3d(infA, supA, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5]);
+
 
   if ctrmax < -eps
     B = abs(supb - Ac * argmax) - Ar * abs(argmax);
@@ -50,6 +53,33 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
         disp(w);
         disp(underline);
         Ar = Ar.*w';
+      case 'DW' %different weight for identical variables
+        A = zeros(m, 2 * m);
+        for i = 1:m
+          A(i, i * 2 - 1) = Ar(i, 1) * abs(argmax(1)); # coeffs for w_1
+          A(i, i * 2) = Ar(i, 2) * abs(argmax(2)); # coeffs for w_2
+        endfor
+        lb = zeros(1, 2 * m);
+        ctype = "";
+        for i = 1:m
+          ctype(i) = 'L';
+        endfor
+        vartype = "";
+        for i = 1:2*m
+          vartype(i) = 'C';
+        endfor
+        sense = 1e-4;
+        C = ones(1,2*m);
+        [w, w_min] = glpk(C,A,B,lb,[],ctype,vartype,sense);
+        w_vec = zeros(size(Ar));
+        for i=1:m
+          w_vec(i, 1) = w(2 * i - 1) + 1;
+          w_vec(i, 2) = w(2 * i) + 1;
+        endfor
+        disp('w');
+        disp(w);
+        disp(underline);
+        Ar = Ar.*w_vec;
     endswitch
   endif
 
@@ -69,6 +99,8 @@ function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, 
     disp('Optim task ccode');
     disp(ccode);
     disp(underline);
+    figure;
+    plot2d3d(infA_1, supA_1, infb, supb, [argmax(1)-1.5:0.1:argmax(1)+1.5], [argmax(2)-1.5:0.1:argmax(2)+1.5]);
   endif
   figure;
   set(gca, 'fontsize', 14);
