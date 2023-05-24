@@ -1,4 +1,4 @@
-function solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, figure_name)
+function [infA_1, supA_1, argmax] = solve2dctrproblem(infA,supA,infb,supb,eps,mode,xlabel_,ylabel_,title_, figure_name)
   midA = (supA+infA)/2;
   midb = (supb+infb)/2;
 

@@ -1,6 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 2023-05-01
-% SimpleTest
 function plot2d3d(infA,supA,infb,supb,x_ranges,y_ranges,z_ranges,varargin)
   [xx, yy] = meshgrid(x_ranges, y_ranges);
   radA = (supA - infA) / 2;
